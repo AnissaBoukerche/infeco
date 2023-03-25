@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Tests\Controller;
+namespace App\Tests\Functional;
 
 use App\Repository\UserAgencyRepository;
-use App\Tests\Entity\UserAgencyTest;
+use App\Tests\Unit\UserAgencyTest;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-Class UserAgencyControllerTest extends WebTestCase
+Class UserAgencyFunctionalTest extends WebTestCase
 {
     public function testVisitingWhileLoggedIn()
     {
@@ -22,7 +22,7 @@ Class UserAgencyControllerTest extends WebTestCase
         // test e.g. the profile page
         $client->request('GET', '/');
         $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('h1', 'Bienvenue !');
+        $this->assertSelectorTextContains('title', 'Accueil');
     }
 }
 
