@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ApartmentRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ApartmentRepository::class)]
@@ -27,6 +29,14 @@ class Apartment
 
     #[ORM\ManyToOne(inversedBy: 'apartment')]
     private ?UserAgency $userAgency = null;
+
+    #[ORM\OneToMany(mappedBy: 'apartment', targetEntity: Rental::class)]
+    private Collection $rentals;
+
+    public function __construct()
+    {
+        $this->rentals = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -89,6 +99,36 @@ class Apartment
     public function setUserAgency(?UserAgency $userAgency): self
     {
         $this->userAgency = $userAgency;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Rental>
+     */
+    public function getRentals(): Collection
+    {
+        return $this->rentals;
+    }
+
+    public function addRental(Rental $rental): self
+    {
+        if (!$this->rentals->contains($rental)) {
+            $this->rentals->add($rental);
+            $rental->setApartment($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRental(Rental $rental): self
+    {
+        if ($this->rentals->removeElement($rental)) {
+            // set the owning side to null (unless already changed)
+            if ($rental->getApartment() === $this) {
+                $rental->setApartment(null);
+            }
+        }
 
         return $this;
     }

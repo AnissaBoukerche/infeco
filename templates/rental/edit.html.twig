@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier une location{% endblock %}
+
+{% block body %}
+    <h1 class="text-center">Modifier une location</h1>
+
+    {{ include('rental/_form.html.twig', {'button_label': 'Modifier'}) }}
+    <a href="{{ path('app_rental_index') }}" class="btn btn-secondary mt-2">Retour à la liste des locations</a>
+{% endblock %}
