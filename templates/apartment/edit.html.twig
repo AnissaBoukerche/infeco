@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier un appartment{% endblock %}
+
+{% block body %}
+    <h1 class="text-center">Modifier un appartment</h1>
+
+    {{ include('apartment/_form.html.twig', {'button_label': 'Modifier'}) }}
+    <a href="{{ path('app_apartment_index') }}" class="btn btn-secondary ms-5 mt-2 mb-2">Retour à la liste des appartements</a>
+{% endblock %}

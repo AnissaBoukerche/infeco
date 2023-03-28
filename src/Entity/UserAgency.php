@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserAgencyRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -44,6 +46,14 @@ class UserAgency implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     private ?string $zipCode = null;
+
+    #[ORM\OneToMany(mappedBy: 'userAgency', targetEntity: Apartment::class)]
+    private Collection $apartment;
+
+    public function __construct()
+    {
+        $this->apartment = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -183,6 +193,36 @@ class UserAgency implements UserInterface, PasswordAuthenticatedUserInterface
     public function setZipCode(string $zipCode): self
     {
         $this->zipCode = $zipCode;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Apartment>
+     */
+    public function getApartment(): Collection
+    {
+        return $this->apartment;
+    }
+
+    public function addApartment(Apartment $apartment): self
+    {
+        if (!$this->apartment->contains($apartment)) {
+            $this->apartment->add($apartment);
+            $apartment->setUserAgency($this);
+        }
+
+        return $this;
+    }
+
+    public function removeApartment(Apartment $apartment): self
+    {
+        if ($this->apartment->removeElement($apartment)) {
+            // set the owning side to null (unless already changed)
+            if ($apartment->getUserAgency() === $this) {
+                $apartment->setUserAgency(null);
+            }
+        }
 
         return $this;
     }
