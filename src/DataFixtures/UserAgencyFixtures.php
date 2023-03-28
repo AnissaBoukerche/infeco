@@ -16,6 +16,8 @@ class UserAgencyFixtures extends Fixture
         // parent::__construct();
         $this->passwordHasher = $passwordHasher;
     }
+
+    const USER_AGENCY_PASSWORD = '123456';
     public function load(ObjectManager $manager): void
     {
         $userAgency = new UserAgency();
@@ -27,7 +29,7 @@ class UserAgencyFixtures extends Fixture
         ->setEmail(UnitUserAgencyTest::USER_AGENCY_EMAIL)
         ->setPhone('0442505963')
         ->setPassword(
-        $this->passwordHasher->hashPassword($userAgency,'123456')
+        $this->passwordHasher->hashPassword($userAgency,self::USER_AGENCY_PASSWORD)
         )
         ->setAgencyFees(8);
         $manager->persist($userAgency);
