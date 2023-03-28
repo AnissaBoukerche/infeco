@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Apartment{% endblock %}
+
+{% block body %}
+    <h1 class="ms-3">Supprimer un appartement</h1>
+
+    <table class="table table-striped table-hover ms-3">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ apartment.id }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ apartment.address }}</td>
+            </tr>
+            <tr>
+                <th>Complément d'adresse</th>
+                <td>{{ apartment.additionalAddressDetails }}</td>
+            </tr>
+            <tr>
+                <th>Ville</th>
+                <td>{{ apartment.city }}</td>
+            </tr>
+            <tr>
+                <th>Code postal</th>
+                <td>{{ apartment.zipCode }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="ms-3">
+        {{ include('apartment/_delete_form.html.twig') }}
+    </div>
+    <a href="{{ path('app_apartment_index') }}" class="btn btn-secondary ms-3 mt-2 mb-5">Retour à la liste des appartements</a>
+
+
+{% endblock %}
