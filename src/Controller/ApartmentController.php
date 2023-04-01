@@ -8,6 +8,7 @@ use App\Repository\ApartmentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/apartment')]
@@ -17,7 +18,7 @@ class ApartmentController extends AbstractController
     public function index(ApartmentRepository $apartmentRepository): Response
     {
         return $this->render('apartment/index.html.twig', [
-            'apartments' => $apartmentRepository->findAll(),
+            'apartments' => $apartmentRepository->findBy(['userAgency'=>$this->getUser()]),
         ]);
     }
 
@@ -29,6 +30,7 @@ class ApartmentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $apartment->setUserAgency($this->getUser());
             $apartmentRepository->save($apartment, true);
 
             return $this->redirectToRoute('app_apartment_index', [], Response::HTTP_SEE_OTHER);
@@ -43,6 +45,9 @@ class ApartmentController extends AbstractController
     #[Route('/{id}', name: 'app_apartment_show', methods: ['GET'])]
     public function show(Apartment $apartment): Response
     {
+        if ($apartment->getUserAgency() !== $this->getUser()){
+            throw new NotFoundHttpException();
+        }
         return $this->render('apartment/show.html.twig', [
             'apartment' => $apartment,
         ]);
@@ -55,6 +60,7 @@ class ApartmentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $apartment->setUserAgency($this->getUser());
             $apartmentRepository->save($apartment, true);
 
             return $this->redirectToRoute('app_apartment_index', [], Response::HTTP_SEE_OTHER);
