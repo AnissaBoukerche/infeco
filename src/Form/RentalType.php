@@ -2,7 +2,13 @@
 
 namespace App\Form;
 
+<<<<<<< Updated upstream
 use App\Entity\Rental;
+=======
+use App\Entity\Apartment;
+use App\Entity\Rental;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+>>>>>>> Stashed changes
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -46,6 +52,17 @@ class RentalType extends AbstractType
                 'required' => TRUE,
                 'constraints' => new NotBlank(['message' =>'Champ obligatoire']),
                 ])
+<<<<<<< Updated upstream
+=======
+            ->add('apartment', EntityType::class,[
+                // looks for choices from this entity
+                'class' => Apartment::class,
+                'label' => 'Appartement',
+                // uses the User.username property as the visible option string
+                'choice_label' => 'address',
+                'constraints' => new NotBlank(['message' =>'Champ obligatoire']),
+                ])
+>>>>>>> Stashed changes
         ;
     }
 

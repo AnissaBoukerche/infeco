@@ -3,6 +3,11 @@
 namespace App\Entity;
 
 use App\Repository\RentalRepository;
+<<<<<<< Updated upstream
+=======
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+>>>>>>> Stashed changes
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -33,6 +38,23 @@ class Rental
     #[ORM\JoinColumn(nullable: false)]
     private ?Apartment $apartment = null;
 
+<<<<<<< Updated upstream
+=======
+    #[ORM\OneToMany(mappedBy: 'rental', targetEntity: InventoryOfFixtures::class)]
+    private Collection $inventoryOfFixtures;
+
+    public function __construct()
+    {
+        $this->inventoryOfFixtures = new ArrayCollection();
+    }
+
+    public function getUserAgency(){
+        if($this->getApartment() === null){
+            return null;
+        }
+        return $this->getApartment()->getUserAgency();
+    }
+>>>>>>> Stashed changes
     public function getId(): ?int
     {
         return $this->id;
@@ -109,4 +131,37 @@ class Rental
 
         return $this;
     }
+<<<<<<< Updated upstream
+=======
+
+    /**
+     * @return Collection<int, InventoryOfFixtures>
+     */
+    public function getInventoryOfFixtures(): Collection
+    {
+        return $this->inventoryOfFixtures;
+    }
+
+    public function addInventoryOfFixture(InventoryOfFixtures $inventoryOfFixture): self
+    {
+        if (!$this->inventoryOfFixtures->contains($inventoryOfFixture)) {
+            $this->inventoryOfFixtures->add($inventoryOfFixture);
+            $inventoryOfFixture->setRental($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInventoryOfFixture(InventoryOfFixtures $inventoryOfFixture): self
+    {
+        if ($this->inventoryOfFixtures->removeElement($inventoryOfFixture)) {
+            // set the owning side to null (unless already changed)
+            if ($inventoryOfFixture->getRental() === $this) {
+                $inventoryOfFixture->setRental(null);
+            }
+        }
+
+        return $this;
+    }
+>>>>>>> Stashed changes
 }
