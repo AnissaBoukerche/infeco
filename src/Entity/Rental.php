@@ -3,11 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\RentalRepository;
-<<<<<<< Updated upstream
-=======
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
->>>>>>> Stashed changes
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -38,8 +35,6 @@ class Rental
     #[ORM\JoinColumn(nullable: false)]
     private ?Apartment $apartment = null;
 
-<<<<<<< Updated upstream
-=======
     #[ORM\OneToMany(mappedBy: 'rental', targetEntity: InventoryOfFixtures::class)]
     private Collection $inventoryOfFixtures;
 
@@ -54,7 +49,6 @@ class Rental
         }
         return $this->getApartment()->getUserAgency();
     }
->>>>>>> Stashed changes
     public function getId(): ?int
     {
         return $this->id;
@@ -131,8 +125,6 @@ class Rental
 
         return $this;
     }
-<<<<<<< Updated upstream
-=======
 
     /**
      * @return Collection<int, InventoryOfFixtures>
@@ -163,5 +155,4 @@ class Rental
 
         return $this;
     }
->>>>>>> Stashed changes
 }
