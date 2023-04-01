@@ -21,7 +21,6 @@ class ApartmentFixtures extends Fixture implements DependentFixtureInterface
         ->setCity('Marseille')
         ->setZipCode('13000')
         ->setUserAgency($userAgency);
-        
         $this->addReference(self::APARTMENT_REFERENCE, $apartment);
         $manager->persist($apartment);
 

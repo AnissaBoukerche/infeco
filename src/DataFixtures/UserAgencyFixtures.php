@@ -18,6 +18,7 @@ class UserAgencyFixtures extends Fixture
     }
 
     const USER_AGENCY_PASSWORD = '123456';
+    const USER_AGENCY_REFERENCE = 'UserAgency';
     public function load(ObjectManager $manager): void
     {
         $userAgency = new UserAgency();
@@ -27,6 +28,19 @@ class UserAgencyFixtures extends Fixture
         ->setZipCode('13000')
         ->setCity('Marseille')
         ->setEmail(UnitUserAgencyTest::USER_AGENCY_EMAIL)
+        ->setPhone('0442505963')
+        ->setPassword(
+        $this->passwordHasher->hashPassword($userAgency,self::USER_AGENCY_PASSWORD)
+        )
+        ->setAgencyFees(8);
+
+        $userAgency = new UserAgency();
+
+        $userAgency->setName('immo-marseille2')
+        ->setAddress('10 avenue de Marseille')
+        ->setZipCode('13000')
+        ->setCity('Marseille')
+        ->setEmail('immo-marseille2@studi.fr')
         ->setPhone('0442505963')
         ->setPassword(
         $this->passwordHasher->hashPassword($userAgency,self::USER_AGENCY_PASSWORD)
