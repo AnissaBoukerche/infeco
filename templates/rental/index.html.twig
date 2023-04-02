@@ -14,7 +14,10 @@
                 <th>Charges</th>
                 <th>Loyer</th>
                 <th>Solde</th>
-                <th>Actions</th>
+                <th>Modifier</th>
+                <th>Supprimer</th>
+                <th>Ajouter un état des lieux</th>
+                <th>Ajouter un locataire</th>
             </tr>
         </thead>
         <tbody>
@@ -28,8 +31,17 @@
                 <td>{{ rental.balance }}</td>
                 <td>
                     <a href="{{ path('app_rental_edit', {'id': rental.id}) }}" class="btn btn-warning">Modifier</a>
+                </td>
+                <td>
                     <a href="{{ path('app_rental_delete', {'id': rental.id}) }}" class="btn btn-danger">Supprimer</a>
+                </td>
+                <td>
                     <a href="{{ path('app_inventory_of_fixtures_new', {'id': rental.id}) }}" class="btn btn-primary">Ajouter un état des lieux</a>
+                </td>
+                <td>
+                    <a href="{{ path('app_tenant_new', {'id': rental.id}) }}" class="btn btn-primary">Ajouter un locataire</a>
+                </td>
+                    
                     
                 </td>
             </tr>

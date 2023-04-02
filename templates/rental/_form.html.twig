@@ -36,7 +36,7 @@
 				const list = $("#images-fields-list");
 				let counter = list.data('widget-counter') | list.children().length;
 				let newWidget = list.attr('data-prototype');
-				newWidget = newWidget.replace(/__name__/g, counter);
+				newWidget = newWidget.replace(/__name__/, counter);
 				counter++;
 				list.data('widget-counter', counter);
 
@@ -51,7 +51,5 @@
 			});
 		});
 	</script>
-    <script>
-    
-    </script>
+
 {% endblock %}
