@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier un locataire{% endblock %}
+
+{% block body %}
+    <h1 class="text-center">Modifier un locataire</h1>
+
+    {{ include('tenant/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+    <a href="{{ path('app_tenant_index') }}" class="btn btn-secondary ms-5 mt-2 mb-2">Retour à la liste des locataires</a>
+{% endblock %}

@@ -1,0 +1,69 @@
+{% block body %}
+<section class="container my-3">
+    <div class="row">
+        <div class="col">
+        {{ form_start(form) }}
+    <fieldset>
+        <legend>Identité du locataire</legend>
+        {{ form_row(form.firstName)}}
+        {{ form_row(form.lastName)}}
+        {{ form_row(form.dateOfBirth,{'class': 'form-control', type:'date'})}}
+        {{ form_row(form.birthPlace)}}
+        {{ form_row(form.civilStatus)}}
+    </fieldset>
+    <fieldset>
+        <legend>Mes coordonnées</legend>
+        {{ form_row(form.email) }}
+         {{ form_row(form.phone) }}
+        {{ form_row(form.address) }}
+        {{ form_row(form.city) }}
+        {{ form_row(form.zipCode) }}
+    </fieldset>
+    <fieldset>
+        <legend>Garant</legend>
+        {{ form_row(form.guarantor) }}
+    </fieldset>
+    <button class="btn btn-lg btn-primary mt-2" type="submit"> {{ button_label|default('Sauvegarder') }}</button>
+{{ form_end(form) }}
+		</div>
+	</div>
+</section>
+{% endblock %}
+{% block javascripts %}
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+	<script>
+		$('.js-input-date').flatpickr({
+			dateFormat: 'm.d.Y',
+			locale: {firstDayOfWeek: 1,
+			weekdays: {
+				shorthand: ['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'],
+				longhand: ['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche']
+			},
+			months: {
+				shorthand: ['Jan','Fév','Mar','Avr','Mai','Jui','Juil','Août','Sept','Oct','Nov','Déc'],
+				longhand: ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre']
+			}
+        }})
+	</script>
+	<script type="text/javascript">
+		jQuery(document).ready(function () {
+			jQuery('.add-another-collection').click(function (e) {
+				const list = $("#images-fields-list");
+				let counter = list.data('widget-counter') | list.children().length;
+				let newWidget = list.attr('data-prototype');
+				newWidget = newWidget.replace(/__name__/, counter);
+				counter++;
+				list.data('widget-counter', counter);
+
+				let newElem = jQuery(list.attr('data-widget-tags')).html(newWidget);
+				newElem.appendTo(list);
+				newElem.append('<a href="#" class="remove-tag" style="color: darkred">Supprimer</a>');
+				$('.remove-tag').click(function (e) {
+				e.preventDefault();
+
+				$(this).parent().remove();
+				});
+			});
+		});
+	</script>
+    {% endblock %}
