@@ -38,9 +38,13 @@ class Rental
     #[ORM\OneToMany(mappedBy: 'rental', targetEntity: InventoryOfFixtures::class)]
     private Collection $inventoryOfFixtures;
 
+    #[ORM\ManyToMany(targetEntity: Tenant::class, mappedBy: 'rental')]
+    private Collection $tenants;
+
     public function __construct()
     {
         $this->inventoryOfFixtures = new ArrayCollection();
+        $this->tenants = new ArrayCollection();
     }
 
     public function getUserAgency(){
@@ -151,6 +155,33 @@ class Rental
             if ($inventoryOfFixture->getRental() === $this) {
                 $inventoryOfFixture->setRental(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Tenant>
+     */
+    public function getTenants(): Collection
+    {
+        return $this->tenants;
+    }
+
+    public function addTenant(Tenant $tenant): self
+    {
+        if (!$this->tenants->contains($tenant)) {
+            $this->tenants->add($tenant);
+            $tenant->addRental($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTenant(Tenant $tenant): self
+    {
+        if ($this->tenants->removeElement($tenant)) {
+            $tenant->removeRental($this);
         }
 
         return $this;
