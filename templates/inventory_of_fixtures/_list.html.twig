@@ -1,0 +1,29 @@
+<table class="table table-striped table-hover ms-3">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date</th>
+                <th>Statut : entrée ou sortie</th>
+                <th>Commentaires</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for inventory_of_fixture in inventory_of_fixtures %}
+            <tr>
+                <td>{{ inventory_of_fixture.id }}</td>
+                <td>{{ inventory_of_fixture.createdAt ? inventory_of_fixture.createdAt|date('d-m-Y H:i:s') : '' }}</td>
+                <td>{{ inventory_of_fixture.status ? 'Entrée' : 'Sortie' }}</td>
+                <td>{{ inventory_of_fixture.comments }}</td>
+                <td>
+                    <a href="{{ path('app_inventory_of_fixtures_edit', {'id': inventory_of_fixture.id}) }}" class="btn btn-warning">Modifier</a>
+                    <a href="{{ path('app_inventory_of_fixtures_delete', {'id': inventory_of_fixture.id}) }}" class="btn btn-danger">Supprimer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Aucun inventaire trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>

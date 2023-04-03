@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Supprimer une location{% endblock %}
+{% block title %}Détail d'une location{% endblock %}
 
 {% block body %}
-    <h1 class="ms-3">Supprimer une location</h1>
+    <h1 class="ms-3">Détail de la location</h1>
 
     <table class="table table-striped table-hover ms-3">
         <tbody>
@@ -33,8 +33,7 @@
             </tr>
         </tbody>
     </table>
-    <div class="ms-3">
-    {{ include('rental/_delete_form.html.twig') }}
-    </div>
-     <a href="{{ path('app_rental_index') }}" class="btn btn-secondary ms-3 mt-2 mb-5">Retour à la liste des locations</a>
+    {{ include('tenant/_list.html.twig',{'is_action':false}) }}
+    {{ include('inventory_of_fixtures/_list.html.twig') }}
+    <a href="{{ path('app_rental_index') }}" class="btn btn-secondary ms-3 mt-2 mb-5">Retour à la liste des locations</a>
 {% endblock %}

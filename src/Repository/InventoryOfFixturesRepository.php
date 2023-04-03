@@ -52,6 +52,16 @@ class InventoryOfFixturesRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findByRental(Rental $rental)
+    {
+        return $this->createQueryBuilder('i')
+            ->innerJoin('i.rental', 'rental')
+            ->where('rental.id = :rental')
+            ->setParameter('rental', $rental->getId())
+            ->getQuery()
+            ->getResult();
+    }
 //    /**
 //     * @return InventoryOfFixtures[] Returns an array of InventoryOfFixtures objects
 //     */

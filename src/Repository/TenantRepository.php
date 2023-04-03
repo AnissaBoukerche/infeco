@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Rental;
 use App\Entity\Tenant;
 use App\Entity\UserAgency;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -41,11 +42,21 @@ class TenantRepository extends ServiceEntityRepository
     }
     public function findByUserAgency(UserAgency $userAgency)
     {
-        return $this->createQueryBuilder('i')
-            ->innerJoin('i.rental', 'rental')
+        return $this->createQueryBuilder('t')
+            ->innerJoin('t.rental', 'rental')
             ->innerJoin('rental.apartment', 'apartment')
             ->where('apartment.userAgency = :userAgency')
             ->setParameter('userAgency', $userAgency)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findByRental(Rental $rental)
+    {
+        return $this->createQueryBuilder('t')
+            ->innerJoin('t.rental', 'rental')
+            ->where('rental.id = :rental')
+            ->setParameter('rental', $rental->getId())
             ->getQuery()
             ->getResult();
     }

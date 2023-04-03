@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Rental;
 use App\Form\RentalType;
+use App\Repository\InventoryOfFixturesRepository;
 use App\Repository\RentalRepository;
+use App\Repository\TenantRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -41,10 +43,14 @@ class RentalController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_rental_show', methods: ['GET'])]
-    public function show(Rental $rental): Response
+    public function show(Rental $rental, TenantRepository $tenantRepository, InventoryOfFixturesRepository $inventoryOfFixturesRepository): Response
     {
+        $tenants = $tenantRepository->findByRental($rental);
+        $inventoryOfFixtures = $inventoryOfFixturesRepository->findByRental($rental);
         return $this->render('rental/show.html.twig', [
             'rental' => $rental,
+            'tenants' => $tenants,
+            'inventory_of_fixtures' => $inventoryOfFixtures,
         ]);
     }
 
