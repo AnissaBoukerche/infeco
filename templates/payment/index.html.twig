@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des paiements{% endblock %}
+
+{% block body %}
+    <h1  class="text-center mb-3">Liste des paiement</h1>
+    {{ include('payment/_list.html.twig',{'is_action':true}) }}
+{% endblock %}

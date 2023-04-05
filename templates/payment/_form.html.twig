@@ -1,0 +1,31 @@
+<section class="container my-3">
+    <div class="row">
+        <div class="col">
+{{ form_start(form) }}
+    {{ form_row(form.paymentAt,{'class': 'form-control', type:'date'}) }}
+    {{ form_row(form.amount) }}
+    {{ form_row(form.type,{'class': 'form-control', type:'checkbox'}) }}
+    {{ form_row(form.paymentMethod,{'class': 'form-control', type:'choices'}) }}
+    <button class="btn btn-lg btn-primary mt-2" type="submit"> {{ button_label|default('Sauvegarder') }}</button>
+{{ form_end(form) }}
+		</div>
+	</div>
+</section>
+
+{% block javascripts %}
+	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+	<script>
+		$('.js-input-date').flatpickr({
+			dateFormat: 'Y.m.d',
+			locale: {firstDayOfWeek: 1,
+			weekdays: {
+				shorthand: ['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'],
+				longhand: ['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche']
+			},
+			months: {
+				shorthand: ['Jan','Fév','Mar','Avr','Mai','Jui','Juil','Août','Sept','Oct','Nov','Déc'],
+				longhand: ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre']
+			}
+        }})
+	</script>
+    {% endblock javascripts %}
