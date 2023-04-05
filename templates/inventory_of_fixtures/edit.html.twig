@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modification d'un inventaire{% endblock %}
+{% block title %}Modification d'un état des lieux{% endblock %}
 
 {% block body %}
-    <h1 class="text-center">Modifier un inventaire</h1>
+    <h1 class="text-center">Modifier un état des lieux</h1>
 
     {{ include('inventory_of_fixtures/_form.html.twig', {'button_label': 'Modifier'}) }}
-    <a href="{{ path('app_inventory_of_fixtures_index') }}" class="btn btn-secondary ms-5 mt-2 mb-2">Retour à la liste des inventaires</a>
+    <a href="{{ path('app_inventory_of_fixtures_index') }}" class="btn btn-secondary ms-5 mt-2 mb-2">Retour à la liste des états des lieux</a>
 {% endblock %}
