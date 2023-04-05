@@ -18,6 +18,7 @@
                 <th>Supprimer</th>
                 <th>Ajouter un état des lieux</th>
                 <th>Ajouter un locataire</th>
+                <th>Ajouter un paiement</th>
                 <th>Détail</th>
             </tr>
         </thead>
@@ -41,6 +42,9 @@
                 </td>
                 <td>
                     <a href="{{ path('app_tenant_new', {'id': rental.id}) }}" class="btn btn-success">Ajouter un locataire</a>
+                </td>
+                <td>
+                    <a href="{{ path('app_payment_new', {'id': rental.id}) }}" class="btn btn-success">Ajouter un paiement</a>
                 </td>
                 <td>
                     <a href="{{ path('app_rental_show', {'id': rental.id}) }}" class="btn btn-info">Voir</a>

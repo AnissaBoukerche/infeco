@@ -7,7 +7,7 @@ use App\Entity\Apartment;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -33,18 +33,13 @@ class RentalType extends AbstractType
                 'format' => 'yyy-MM-dd',
                 'html5'=>false,
             ])
-            ->add('charges', TextType::class, [
+            ->add('charges', NumberType::class, [
                 'label' => 'Charges',
                 'required' => TRUE,
                 'constraints' => new NotBlank(['message' =>'Champ obligatoire']),
                 ])
-            ->add('rent', TextType::class, [
+            ->add('rent', NumberType::class, [
                 'label' => 'Loyer',
-                'required' => TRUE,
-                'constraints' => new NotBlank(['message' =>'Champ obligatoire']),
-                ])
-            ->add('balance', TextType::class, [
-                'label' => 'Solde',
                 'required' => TRUE,
                 'constraints' => new NotBlank(['message' =>'Champ obligatoire']),
                 ])
