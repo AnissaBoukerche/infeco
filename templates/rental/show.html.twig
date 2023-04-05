@@ -29,11 +29,23 @@
             </tr>
             <tr>
                 <th>Solde</th>
-                <td>{{ rental.balance }}</td>
+                <td>{{ rental.calculateRentBalance }}</td>
+            </tr>
+            <tr>
+                <th>Montant avec dépôt de garantie, charges et frais d'agence</th>
+                <td>{{ rental.calculateTotalAmount }}</td>
+            </tr>
+            <tr>
+                <th>Montant avec dépôt de garantie, charges et frais d'agence à la sortie</th>
+                <td>{{ rental.calculateTotalAmountAtExit }}</td>
             </tr>
         </tbody>
     </table>
+    <h2 class="ms-3">Locataires</h2>
     {{ include('tenant/_list.html.twig',{'is_action':false}) }}
+    <h2 class="ms-3">États des lieux</h2>
     {{ include('inventory_of_fixtures/_list.html.twig') }}
+    <h2 class="ms-3">Paiements</h2>
+    {{ include('payment/_list.html.twig',{'is_action':false}) }}
     <a href="{{ path('app_rental_index') }}" class="btn btn-secondary ms-3 mt-2 mb-5">Retour à la liste des locations</a>
 {% endblock %}

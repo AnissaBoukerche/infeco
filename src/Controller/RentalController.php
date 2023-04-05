@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Rental;
 use App\Form\RentalType;
 use App\Repository\InventoryOfFixturesRepository;
+use App\Repository\PaymentRepository;
 use App\Repository\RentalRepository;
 use App\Repository\TenantRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -43,14 +44,29 @@ class RentalController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_rental_show', methods: ['GET'])]
-    public function show(Rental $rental, TenantRepository $tenantRepository, InventoryOfFixturesRepository $inventoryOfFixturesRepository): Response
+    public function show(Rental $rental, TenantRepository $tenantRepository, InventoryOfFixturesRepository $inventoryOfFixturesRepository, PaymentRepository $paymentRepository): Response
     {
+         // Fetch related entities
         $tenants = $tenantRepository->findByRental($rental);
         $inventoryOfFixtures = $inventoryOfFixturesRepository->findByRental($rental);
+        $payments = $paymentRepository->findByRental($rental);
+
+        // Calculate the total for the rental : rent + charges + fees * duration in months
+        $totalAmount = $rental->calculateTotalAmount();
+        // Calculate the total for the rental at exit : rent + charges + fees * total duration in months
+        $totalAmountAtExit = $rental->calculateTotalAmountAtExit();
+        // Calculate the rent balance
+        $rentBalance = $rental->calculateRentBalance();
+
+        // Render the template with the fetched entities and calculated payments
         return $this->render('rental/show.html.twig', [
             'rental' => $rental,
+            'total_amount' => $totalAmount,
+            'total_amount_at_exit' => $totalAmountAtExit,
+            'rent_balance' => $rentBalance,
             'tenants' => $tenants,
             'inventory_of_fixtures' => $inventoryOfFixtures,
+            'payments' => $payments,
         ]);
     }
 

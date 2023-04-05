@@ -41,10 +41,14 @@ class Rental
     #[ORM\ManyToMany(targetEntity: Tenant::class, mappedBy: 'rental')]
     private Collection $tenants;
 
+    #[ORM\OneToMany(mappedBy: 'rental', targetEntity: Payment::class)]
+    private Collection $payments;
+
     public function __construct()
     {
         $this->inventoryOfFixtures = new ArrayCollection();
         $this->tenants = new ArrayCollection();
+        $this->payments = new ArrayCollection();
     }
 
     public function getUserAgency(){
@@ -94,6 +98,7 @@ class Rental
         return $this;
     }
 
+    
     public function getRent(): ?float
     {
         return $this->rent;
@@ -118,6 +123,67 @@ class Rental
         return $this;
     }
 
+    public function calculateDeposit():?float
+    {
+        return $this->getRent();
+    }
+    public function calculateDurationInMonths(): int
+{
+    $entryAt = $this->getEntryAt();
+    $currentDate = new \DateTime();
+    $date = ($currentDate<$this->getExitAt())? $currentDate : $this->getExitAt();
+    $result = $entryAt->diff($date)->m + ($entryAt->diff($date)->y * 12);
+    return ($result <= 0)? 1 : $result;
+}
+
+public function calculateTotalDurationInMonths(): int
+{
+    $entryAt = $this->getEntryAt();
+    $exitAt = $this->getExitAt();
+    $result = $entryAt->diff($exitAt)->m + ($entryAt->diff($exitAt)->y * 12);
+    return ($result <= 0)? 1 : $result;
+}
+
+public function calculateAgencyFeesOnRent(): float {
+    $agencyPercentage = $this->getUserAgency()->getAgencyFees()/100;
+    $agencyFeesOnRent = $this->getRent() * $agencyPercentage;
+    return $agencyFeesOnRent;
+}
+public function calculateTotalAmount(): float
+{
+    $rent = $this->getRent();
+    $charges = $this->getCharges();
+    $deposit = $this->calculateDeposit();
+    $agencyFees = $this->calculateAgencyFeesOnRent();
+    $durationInMonths = $this->calculateDurationInMonths();
+
+    return ($rent + $charges + $agencyFees) * $durationInMonths + $deposit;
+}
+
+public function calculateTotalAmountAtExit(): float
+{
+    $rent = $this->getRent();
+    $charges = $this->getCharges();
+    $deposit = $this->calculateDeposit();
+    $agencyFees = $this->calculateAgencyFeesOnRent();
+    $totalDurationInMonths = $this->calculateTotalDurationInMonths();
+
+    return ($rent + $charges + $agencyFees) * $totalDurationInMonths + $deposit;
+}
+public function calculateRentBalance(): float
+{
+    $totalAmount = $this->calculateTotalAmount();
+    $payments = $this->getPayments();
+    $totalPayments = 0;
+
+    foreach ($payments as $payment) {
+            $totalPayments += $payment->getAmount();
+    }
+    $rentBalance = $totalPayments - $totalAmount;
+
+    return $rentBalance;
+}
+    
     public function getApartment(): ?Apartment
     {
         return $this->apartment;
@@ -186,4 +252,35 @@ class Rental
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Payment>
+     */
+    public function getPayments(): Collection
+    {
+        return $this->payments;
+    }
+
+    public function addPayment(Payment $payment): self
+    {
+        if (!$this->payments->contains($payment)) {
+            $this->payments->add($payment);
+            $payment->setRental($this);
+        }
+
+        return $this;
+    }
+
+    public function removePayment(Payment $payment): self
+    {
+        if ($this->payments->removeElement($payment)) {
+            // set the owning side to null (unless already changed)
+            if ($payment->getRental() === $this) {
+                $payment->setRental(null);
+            }
+        }
+
+        return $this;
+    }
+
 }
