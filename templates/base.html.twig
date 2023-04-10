@@ -15,6 +15,16 @@
     <body class="d-flex flex-column h-100">
         {% include "_partials/_navbar.html.twig" %}
         <main>
+            {% for message in app.flashes('error') %}
+                <div class="alert alert-danger">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
             {% block body %}{% endblock %}
         </main>
         {% include "_partials/_footer.html.twig" %}

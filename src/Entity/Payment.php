@@ -29,6 +29,9 @@ class Payment
     #[ORM\ManyToOne(inversedBy: 'payments')]
     private ?Rental $rental = null;
 
+    #[ORM\ManyToOne(inversedBy: 'payment')]
+    private ?RentalReceipts $rentalReceipts = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +93,18 @@ class Payment
     public function setRental(?Rental $rental): self
     {
         $this->rental = $rental;
+
+        return $this;
+    }
+
+    public function getRentalReceipts(): ?RentalReceipts
+    {
+        return $this->rentalReceipts;
+    }
+
+    public function setRentalReceipts(?RentalReceipts $rentalReceipts): self
+    {
+        $this->rentalReceipts = $rentalReceipts;
 
         return $this;
     }

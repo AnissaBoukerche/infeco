@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html class="h-100" lang="fr">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    <p> Bonjour Madame, Monsieur</p>
+    <p>
+    Veuillez trouver votre quittance de loyer : 
+    </p>
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Début de la période</th>
+                <th>Fin de la période</th>
+                <th>Loyers</th>
+                <th>Charges</th>
+                <th>Frais</th>
+                <th>Montant</th>
+                <th>Solde</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for rental_receipt in rental_receipts %}
+            <tr>
+                <td>{{ rental_receipt.createdAt|date('d/m/Y') }}</td>
+                <td>{{ rental_receipt.startAt|date('d/m/Y') }}</td>
+                <td>{{ rental_receipt.endAt|date('d/m/Y') }}</td>
+                <td>{{ rental_receipt.rentAmount}}</td>
+                <td>{{ rental_receipt.chargesAmount}}</td>
+                <td>{{ rental_receipt.agencyFeesAmount}}</td>
+                <td>{{ rental_receipt.totalAmount }} €</td>
+                <td>{{ rental_receipt.balance}}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </body>
+</html>
