@@ -23,6 +23,7 @@ class RentalFixtures extends Fixture implements DependentFixtureInterface
         ->setExitAt($exitAt)
         ->setCharges(150.50)
         ->setRent(456.75)
+        ->setBalance(56.75)
         ->setApartment($apartment);
         $this->addReference(self::RENTAL_REFERENCE, $rental);
 

@@ -19,7 +19,7 @@ class Rental
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $entryAt = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $exitAt = null;
 
     #[ORM\Column]
@@ -28,7 +28,7 @@ class Rental
     #[ORM\Column]
     private ?float $rent = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: false)]
     private ?float $balance = null;
 
     #[ORM\ManyToOne(inversedBy: 'rentals')]
