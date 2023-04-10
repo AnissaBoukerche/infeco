@@ -5,7 +5,6 @@ namespace App\Repository;
 use App\Entity\InventoryOfFixtures;
 use App\Entity\UserAgency;
 use App\Entity\Rental;
-use App\Entity\Apartment;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
