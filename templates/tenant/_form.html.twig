@@ -21,6 +21,7 @@
     <fieldset>
         <legend>Garant</legend>
         {{ form_row(form.guarantor) }}
+        {{ form_row(form.imageFile) }}
     </fieldset>
     <button class="btn btn-lg btn-primary mt-2" type="submit"> {{ button_label|default('Sauvegarder') }}</button>
 {{ form_end(form) }}

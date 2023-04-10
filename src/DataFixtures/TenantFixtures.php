@@ -28,6 +28,7 @@ class TenantFixtures extends Fixture implements DependentFixtureInterface
         ->setCity('Marseille')
         ->setZipCode('13000')
         ->setGuarantor('Jean Monde')
+        ->setUpdatedAt(new \DateTimeImmutable())
         ->addRental($rental);
         $this->addReference(self::TENANT_REFERENCE, $tenant);
         $manager->persist($tenant);

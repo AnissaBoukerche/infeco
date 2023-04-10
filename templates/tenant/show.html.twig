@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Supprimer un locataire{% endblock %}
+{% block title %}Détails d'un locataire{% endblock %}
 
 {% block body %}
-    <h1 class="ms-3">Supprimer un locataire</h1>
+    <h1 class="ms-3">Détails d'un locataire</h1>
 
-    <table class="table table-striped table-hover ms-3">
+    <table class="table table-striped table-hover table-sm">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -21,7 +21,7 @@
             </tr>
             <tr>
                 <th>Date de naissance</th>
-                <td>{{ tenant.dateOfBirth ? tenant.dateOfBirth|date('Y-m-d') : '' }}</td>
+                <td>{{ tenant.dateOfBirth ? tenant.dateOfBirth|date('d-m-Y')}}</td>
             </tr>
             <tr>
                 <th>Lieu de naissance</th>
@@ -55,9 +55,12 @@
                 <th>Garant</th>
                 <td>{{ tenant.guarantor }}</td>
             </tr>
+            <tr>
+                <th>Pièce d'identité du garant</th>
+                <td><img src="{{ vich_uploader_asset(tenant, 'imageFile')}}" alt="{{tenant.imagefile}}"></td>
+            </tr>
         </tbody>
     </table>
-
     <div class="ms-3">
     {{ include('tenant/_delete_form.html.twig') }}
     </div>

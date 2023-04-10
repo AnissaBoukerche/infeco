@@ -7,8 +7,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Vich\UploaderBundle\Entity\File as EmbeddedFile;
 
 #[ORM\Entity(repositoryClass: TenantRepository::class)]
+#[Vich\Uploadable]
 class Tenant
 {
     #[ORM\Id]
@@ -52,9 +56,23 @@ class Tenant
     #[ORM\ManyToMany(targetEntity: Rental::class, inversedBy: 'tenants')]
     private Collection $rental;
 
+    #[Vich\UploadableField(mapping:"tenant_images", fileNameProperty: 'image.name')]
+    
+    private ?File $imageFile = null;
+
+    #[ORM\Embedded(class:EmbeddedFile::class)]
+    private ?EmbeddedFile $image = null;
+
+    
+    #[ORM\Column]
+    private ?\DateTimeImmutable $updatedAt = null;
+
+    
     public function __construct()
     {
         $this->rental = new ArrayCollection();
+        $this->image = new EmbeddedFile();
+        $this->updatedAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -217,4 +235,41 @@ class Tenant
 
         return $this;
     }
+
+    public function getImageFile(): ?File
+    {
+
+        return $this->imageFile;
+    }
+    public function setImageFile(?File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+        if (null!==$imageFile){
+        $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getImage(): ?EmbeddedFile
+    {
+        return $this->image;
+    }
+
+    public function setImage(EmbeddedFile $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
 }

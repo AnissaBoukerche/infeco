@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class TenantType extends AbstractType
 {
@@ -82,7 +83,13 @@ class TenantType extends AbstractType
                 'required' => TRUE,
                 'constraints' => new NotBlank(['message' =>'Champ obligatoire']),
                 ])
-        ;
+            ->add('imageFile',VichImageType::class,[
+                'label' => 'Télécharger une pièce d\'identification du garant',
+                'label_attr' => [
+                'class' =>'form-label mt-4'
+                ],
+                ])
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
