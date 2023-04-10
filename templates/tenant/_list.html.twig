@@ -1,4 +1,4 @@
-<table class="table table-striped table-hover ms-3">
+<table class="table table-striped table-hover table-sm">
         <thead>
             <tr>
                 <th>Id</th>
@@ -12,9 +12,10 @@
                 <th>Adresse</th>
                 <th>Ville</th>
                 <th>Code Postal</th>
-                <th>Guarant</th>
+                <th>Garant</th>
                 {% if is_action %}
-                <th>Actions</th>
+                <th>Modifier</th>
+                <th>Voir/Supprimer</th>
                 {% endif %}
             </tr>
         </thead>
@@ -24,7 +25,7 @@
                 <td>{{ tenant.id }}</td>
                 <td>{{ tenant.lastName }}</td>
                 <td>{{ tenant.firstName }}</td>
-                <td>{{ tenant.dateOfBirth ? tenant.dateOfBirth|date('d-m-Y') : '' }}</td>
+                <td>{{ tenant.dateOfBirth ? tenant.dateOfBirth|date('d-m-Y')}}</td>
                 <td>{{ tenant.birthPlace }}</td>
                 <td>{{ tenant.civilStatus }}</td>
                 <td>{{ tenant.email }}</td>
@@ -35,8 +36,10 @@
                 <td>{{ tenant.guarantor }}</td>
                 {% if is_action %}
                 <td>
-                    <a href="{{ path('app_tenant_edit', {'id': tenant.id}) }}" class="btn btn-warning">Modifier</a>
-                    <a href="{{ path('app_tenant_delete', {'id': tenant.id}) }}" class="btn btn-danger">Supprimer</a>
+                    <a href="{{ path('app_tenant_edit', {'id': tenant.id}) }}" class="btn btn-warning">Locataire</a>
+                </td>
+                <td>  
+                    <a href="{{ path('app_tenant_delete', {'id': tenant.id}) }}" class="btn btn-danger">Locataire</a>
                 </td>
                 {% endif %}
             </tr>
