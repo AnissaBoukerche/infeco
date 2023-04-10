@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Suppression d'un inventaire{% endblock %}
+{% block title %}Suppression d'un état des lieux{% endblock %}
 
 {% block body %}
-    <h1 class="ms-3">Supprimer un inventaire</h1>
+    <h1 class="ms-3">Supprimer un état des lieux</h1>
 
-    <table class="table table-striped table-hover ms-3">
+    <table class="table table-striped table-hover table-sm">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -13,7 +13,7 @@
             </tr>
             <tr>
                 <th>Date</th>
-                <td>{{ inventory_of_fixture.createdAt ? inventory_of_fixture.createdAt|date('d-m-Y H:i:s') : '' }}</td>
+                <td>{{ inventory_of_fixture.createdAt ? inventory_of_fixture.createdAt|date('d-m-Y H:i:s')}}</td>
             </tr>
             <tr>
                 <th>Statut</th>

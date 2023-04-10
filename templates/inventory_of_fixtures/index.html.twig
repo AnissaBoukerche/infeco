@@ -12,19 +12,22 @@
                 <th>Date</th>
                 <th>Statut : entrée ou sortie</th>
                 <th>Commentaires</th>
-                <th>Actions</th>
+                <th>Modifier</th>
+                <th>Supprimer</th>
             </tr>
         </thead>
         <tbody>
         {% for inventory_of_fixture in inventory_of_fixtures %}
             <tr>
                 <td>{{ inventory_of_fixture.id }}</td>
-                <td>{{ inventory_of_fixture.createdAt ? inventory_of_fixture.createdAt|date('d-m-Y H:i:s') : '' }}</td>
+                <td>{{ inventory_of_fixture.createdAt ? inventory_of_fixture.createdAt|date('d-m-Y H:i:s')}}</td>
                 <td>{{ inventory_of_fixture.status ? 'Entrée' : 'Sortie' }}</td>
                 <td>{{ inventory_of_fixture.comments }}</td>
                 <td>
-                    <a href="{{ path('app_inventory_of_fixtures_edit', {'id': inventory_of_fixture.id}) }}" class="btn btn-warning">Modifier</a>
-                    <a href="{{ path('app_inventory_of_fixtures_delete', {'id': inventory_of_fixture.id}) }}" class="btn btn-danger">Supprimer</a>
+                    <a href="{{ path('app_inventory_of_fixtures_edit', {'id': inventory_of_fixture.id}) }}" class="btn btn-warning">État des lieux</a>
+                </td>
+                <td>
+                    <a href="{{ path('app_inventory_of_fixtures_delete', {'id': inventory_of_fixture.id}) }}" class="btn btn-danger">État des lieux</a>
                 </td>
             </tr>
         {% else %}
