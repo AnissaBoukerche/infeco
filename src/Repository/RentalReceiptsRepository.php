@@ -3,26 +3,26 @@
 namespace App\Repository;
 
 use App\Entity\Rental;
-use App\Entity\UserAgency;
+use App\Entity\RentalReceipts;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Rental>
+ * @extends ServiceEntityRepository<RentalReceipts>
  *
- * @method Rental|null find($id, $lockMode = null, $lockVersion = null)
- * @method Rental|null findOneBy(array $criteria, array $orderBy = null)
- * @method Rental[]    findAll()
- * @method Rental[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method RentalReceipts|null find($id, $lockMode = null, $lockVersion = null)
+ * @method RentalReceipts|null findOneBy(array $criteria, array $orderBy = null)
+ * @method RentalReceipts[]    findAll()
+ * @method RentalReceipts[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class RentalRepository extends ServiceEntityRepository
+class RentalReceiptsRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Rental::class);
+        parent::__construct($registry, RentalReceipts::class);
     }
 
-    public function save(Rental $entity, bool $flush = false): void
+    public function save(RentalReceipts $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -31,7 +31,7 @@ class RentalRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Rental $entity, bool $flush = false): void
+    public function remove(RentalReceipts $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,18 +40,17 @@ class RentalRepository extends ServiceEntityRepository
         }
     }
 
-    public function findByUserAgency(UserAgency $userAgency)
+    public function findByRental(Rental $rental)
     {
         return $this->createQueryBuilder('r')
-            ->innerJoin('r.apartment', 'apartment')
-            ->where('apartment.userAgency = :userAgency')
-            ->setParameter('userAgency', $userAgency)
+            ->innerJoin('r.payment', 'payment')
+            ->where('payment.rental = :rental')
+            ->setParameter('rental', $rental->getId())
             ->getQuery()
             ->getResult();
     }
-
 //    /**
-//     * @return Rental[] Returns an array of Rental objects
+//     * @return RentalReceipts[] Returns an array of RentalReceipts objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -65,7 +64,7 @@ class RentalRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Rental
+//    public function findOneBySomeField($value): ?RentalReceipts
 //    {
 //        return $this->createQueryBuilder('r')
 //            ->andWhere('r.exampleField = :val')

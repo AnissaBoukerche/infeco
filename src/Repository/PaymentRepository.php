@@ -60,6 +60,37 @@ class PaymentRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findPaymentsBetweenDates(Rental $rental, \DateTimeInterface $startAt, \DateTimeInterface $endAt): array
+    {
+        //Calculate number of months between dates
+        $diffMonths = $startAt->diff($endAt)->m + ($startAt->diff($endAt)->y * 12);
+        // If the number of months is less than or equal to zero, set it to 1 to avoid division by zero errors later
+        if ($diffMonths <= 0) {
+            $diffMonths = 1;
+            }
+        // Query the database to get the total amount of payments made between the two dates for the given rental
+        return $this->createQueryBuilder('p')
+            //link the payment to the rental
+            ->innerJoin('p.rental', 'rental')
+            ->where('rental = :rental')
+            ->setParameter('rental', $rental)
+            ->andWhere('p.paymentAt >= :startAt')
+            ->andWhere('p.paymentAt <= :endAt')
+            ->setParameter('startAt', $startAt->format('Y-m-d'))
+            ->setParameter('endAt', $endAt->format('Y-m-d'))
+            ->getQuery()
+            ->getResult();
+        
+    }
+
+    public function findPaymentsWithoutRentalReceipts()
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.rentalReceipts is null')
+            ->getQuery()
+            ->getResult();
+    }
 //    /**
 //     * @return Payment[] Returns an array of Payment objects
 //     */

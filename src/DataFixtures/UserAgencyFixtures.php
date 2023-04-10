@@ -33,6 +33,8 @@ class UserAgencyFixtures extends Fixture
         $this->passwordHasher->hashPassword($userAgency,self::USER_AGENCY_PASSWORD)
         )
         ->setAgencyFees(8);
+        $this->addReference(self::USER_AGENCY_REFERENCE, $userAgency);
+        $manager->persist($userAgency);
 
         $userAgency = new UserAgency();
 
