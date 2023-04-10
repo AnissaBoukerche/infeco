@@ -43,6 +43,11 @@ class RentalType extends AbstractType
                 'required' => TRUE,
                 'constraints' => new NotBlank(['message' =>'Champ obligatoire']),
                 ])
+            ->add('balance', NumberType::class, [
+                'label' => 'Solde',
+                'required' => TRUE,
+                'constraints' => new NotBlank(['message' =>'Champ obligatoire']),
+                ])
             ->add('apartment', EntityType::class,[
                 // looks for choices from this entity
                 'class' => Apartment::class,
