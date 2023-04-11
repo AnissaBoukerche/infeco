@@ -3,5 +3,13 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-
+<div class="position-relative overflow-hidden d-flex justify-content-center p-3 text-center">
+    <div class=" mx-auto my-5">
+        <div class="bg-image" style="background-image: url({{ asset('images/marseille0.jpg') }}); height: 50vh; width:75vw;">
+            <h1 class="display-4 font-weight-normal">Bienvenue chez Immo-Marseille</h1>
+            <p class="lead font-weight-normal">Le premier outil de gestion de location pour toutes les agences de Marseille.</p>
+            <a class="btn btn-dark text-white" href="{{path('app_rental_index')}}">Accéder aux Locations</a>
+        </div>
+    </div>
+</div>
 {% endblock %}
