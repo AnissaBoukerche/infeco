@@ -32,6 +32,7 @@ security:
   # Note: Only the *first* access control that matches will be used
   access_control:
     - { path: ^/login$, roles: PUBLIC_ACCESS } # login url mus be public
+    - { path: ^/register$, roles: PUBLIC_ACCESS }
     - { path: ^/, roles: ROLE_USER } # Other urls must be protected
     # - { path: ^/admin, roles: ROLE_ADMIN }
     # - { path: ^/profile, roles: ROLE_USER }
