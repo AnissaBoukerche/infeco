@@ -15,7 +15,7 @@ Class MailerService
         $from= $rental->getUserAgency()->getEmail();// get UserAgency email from rental object
         $rentalReceipts = $rentalReceiptsRepository->findbyRental($rental);
         $to = 'tenant@studi.fr'; 
-        $subject = 'Quittance de loyers pour'.$rental->getId();
+        $subject = 'Quittance de loyers';
         
         $email = (new TemplatedEmail())
             ->from($from)
