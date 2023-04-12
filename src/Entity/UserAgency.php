@@ -27,7 +27,8 @@ class UserAgency implements UserInterface, PasswordAuthenticatedUserInterface
     #[CustomAssert\EmailDomain(['studi.fr'])]
     private ?string $email = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type:'json')]
+    #[Assert\NotNull()]
     private array $roles = [];
 
     /**
