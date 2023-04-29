@@ -1,28 +1,31 @@
-<table class="table table-striped table-hover table-sm">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Début de la période</th>
-                <th>Fin de la période</th>
-                <th>Loyers</th>
-                <th>Charges</th>
-                <th>Frais</th>
-                <th>Montant</th>
-                <th>Solde</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for rental_receipt in rental_receipts %}
-            <tr>
-                <td>{{ rental_receipt.createdAt|date('d/m/Y') }}</td>
-                <td>{{ rental_receipt.startAt|date('d/m/Y') }}</td>
-                <td>{{ rental_receipt.endAt|date('d/m/Y') }}</td>
-                <td>{{ rental_receipt.rentAmount}}</td>
-                <td>{{ rental_receipt.chargesAmount}}</td>
-                <td>{{ rental_receipt.agencyFeesAmount}}</td>
-                <td>{{ rental_receipt.totalAmount }} €</td>
-                <td>{{ rental_receipt.balance}}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+<div class="table-responsive-md">
+	<table class="table table-striped table-hover table-sm">
+		<thead>
+			<tr>
+				<th>Date</th>
+				<th>Début de la période</th>
+				<th>Fin de la période</th>
+				<th>Loyers</th>
+				<th>Charges</th>
+				<th>Frais</th>
+				<th>Montant</th>
+				<th>Solde</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for rental_receipt in rental_receipts %}
+				<tr>
+					<td>{{ rental_receipt.createdAt|date('d/m/Y') }}</td>
+					<td>{{ rental_receipt.startAt|date('d/m/Y') }}</td>
+					<td>{{ rental_receipt.endAt|date('d/m/Y') }}</td>
+					<td>{{ rental_receipt.rentAmount}}</td>
+					<td>{{ rental_receipt.chargesAmount}}</td>
+					<td>{{ rental_receipt.agencyFeesAmount}}</td>
+					<td>{{ rental_receipt.totalAmount }}
+						€</td>
+					<td>{{ rental_receipt.balance}}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>

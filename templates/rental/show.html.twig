@@ -1,43 +1,46 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Détail d'une location{% endblock %}
+{% block title %}Détail d'une location
+{% endblock %}
 
 {% block body %}
-    <h1 class="ms-3">Détail de la location</h1>
-    <table class="table table-striped table-hover table-sm">
-    <thead>
-            <tr>
-                <th>Début</th>
-                <th>Fin</th>
-                <th>Charges</th>
-                <th>Loyer</th>
-                <th>Solde</th>
-                <th>Montant avec dépôt de garantie, charges et frais d'agence</th>
-                <th>Montant avec dépôt de garantie, charges et frais d'agence à la sortie</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>{{ rental.entryAt ? rental.entryAt|date('d-m-Y') }}</td>
-                <td>{{ rental.exitAt ? rental.exitAt|date('d-m-Y')}}</td>
-                <td>{{ rental.charges }}</td>
-                <td>{{ rental.rent }}</td>
-                <td>{{ rental.calculateRentBalance }}</td>
-                <td>{{ rental.calculateTotalAmount }}</td>
-                <td>{{ rental.calculateTotalAmountAtExit }}</td>
-            </tr>
-        </tbody>
-    </table>
-    <h2 class="ms-3">Locataires</h2>
-    {{ include('tenant/_list.html.twig',{'is_action':false}) }}
-    <h2 class="ms-3">États des lieux</h2>
-    {{ include('inventory_of_fixtures/_list.html.twig') }}
-    <h2 class="ms-3">Paiements</h2>
-    {{ include('payment/_list.html.twig',{'is_action':false}) }}
-    <h2 class="ms-3">Quittance</h2>
-    <div>
-        {{ include('rental/receipts/_list.html.twig') }}
-        <a href="{{ path('app_rental_receipts', {'id':rental.id}) }}" class="btn btn-dark ms-3 mt-2 mb-5">Générer une quittance</a>
-    </div>
-    <a href="{{ path('app_rental_index') }}" class="btn btn-secondary ms-3 mt-2 mb-5">Retour à la liste des locations</a>
+	<h1 class="ms-3">Détail de la location</h1>
+	<div class="table-responsive-md">
+		<table class="table table-striped table-hover table-sm">
+			<thead>
+				<tr>
+					<th>Début</th>
+					<th>Fin</th>
+					<th>Charges</th>
+					<th>Loyer</th>
+					<th>Solde</th>
+					<th>Montant avec dépôt de garantie, charges et frais d'agence</th>
+					<th>Montant avec dépôt de garantie, charges et frais d'agence à la sortie</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>{{ rental.entryAt ? rental.entryAt|date('d-m-Y') }}</td>
+					<td>{{ rental.exitAt ? rental.exitAt|date('d-m-Y')}}</td>
+					<td>{{ rental.charges }}</td>
+					<td>{{ rental.rent }}</td>
+					<td>{{ rental.calculateRentBalance }}</td>
+					<td>{{ rental.calculateTotalAmount }}</td>
+					<td>{{ rental.calculateTotalAmountAtExit }}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<h2 class="ms-3">Locataires</h2>
+	{{ include('tenant/_list.html.twig',{'is_action':false}) }}
+	<h2 class="ms-3">États des lieux</h2>
+	{{ include('inventory_of_fixtures/_list.html.twig') }}
+	<h2 class="ms-3">Paiements</h2>
+	{{ include('payment/_list.html.twig',{'is_action':false}) }}
+	<h2 class="ms-3">Quittance</h2>
+	<div>
+		{{ include('rental/receipts/_list.html.twig') }}
+		<a href="{{ path('app_rental_receipts', {'id':rental.id}) }}" class="btn btn-dark ms-3 mt-2 mb-5">Générer une quittance</a>
+	</div>
+	<a href="{{ path('app_rental_index') }}" class="btn btn-secondary ms-3 mt-2 mb-5">Retour à la liste des locations</a>
 {% endblock %}

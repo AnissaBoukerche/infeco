@@ -1,51 +1,101 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<section class="container my-3">
-    <div class="row">
-        <div class="col">
-{{ form_start(form) }}
-    {{ form_row(form.startAt,{'class': 'form-control js-input-date', type:'date'}) }}
-    {{ form_row(form.endAt,{'class': 'form-control js-input-date', type:'date'}) }}
-    <button class="btn btn-lg btn-primary mt-2" type="submit"> {{ button_label|default('Sauvegarder') }}</button>
-{{ form_end(form) }}
+	<section class="container my-3">
+		<div class="row">
+			<div class="col">
+				{{ form_start(form) }}
+				{{ form_row(form.startAt,{'class': 'form-control js-input-date', type:'date'}) }}
+				{{ form_row(form.endAt,{'class': 'form-control js-input-date', type:'date'}) }}
+				<button class="btn btn-lg btn-primary mt-2" type="submit">
+					{{ button_label|default('Sauvegarder') }}</button>
+				{{ form_end(form) }}
+			</div>
 		</div>
-	</div>
-	{{ include('rental/receipts/_list.html.twig') }}
-	<h3> Paiements sans quittance </h3>
-    <table class="table table-striped table-hover ms-3">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Montant</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for payment in payments_without_receipts %}
-            <tr>
-                <td>{{ payment.paymentAt|date('d-m-Y')}}</td>
-                <td>{{ payment.amount }} €</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</section>
+		{{ include('rental/receipts/_list.html.twig') }}
+		<h3>
+			Paiements sans quittance
+		</h3>
+		<div class="table-responsive-md">
+			<table class="table table-striped table-hover">
+				<thead>
+					<tr>
+						<th>Date</th>
+						<th>Montant</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for payment in payments_without_receipts %}
+						<tr>
+							<td>{{ payment.paymentAt|date('d-m-Y')}}</td>
+							<td>{{ payment.amount }}
+								€</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</section>
 
 {% endblock %}
 {% block javascripts %}
 	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 	<script>
 		$('.js-input-date').flatpickr({
-			dateFormat: 'Y.m.d',
-			locale: {firstDayOfWeek: 1,
-			weekdays: {
-				shorthand: ['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'],
-				longhand: ['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche']
-			},
-			months: {
-				shorthand: ['Jan','Fév','Mar','Avr','Mai','Jui','Juil','Août','Sept','Oct','Nov','Déc'],
-				longhand: ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre']
-			}
-        }})
+dateFormat: 'Y.m.d',
+locale: {
+firstDayOfWeek: 1,
+weekdays: {
+shorthand: [
+'Lun',
+'Mar',
+'Mer',
+'Jeu',
+'Ven',
+'Sam',
+'Dim'
+],
+longhand: [
+'Lundi',
+'Mardi',
+'Mercredi',
+'Jeudi',
+'Vendredi',
+'Samedi',
+'Dimanche'
+]
+},
+months: {
+shorthand: [
+'Jan',
+'Fév',
+'Mar',
+'Avr',
+'Mai',
+'Jui',
+'Juil',
+'Août',
+'Sept',
+'Oct',
+'Nov',
+'Déc'
+],
+longhand: [
+'Janvier',
+'Février',
+'Mars',
+'Avril',
+'Mai',
+'Juin',
+'Juillet',
+'Août',
+'Septembre',
+'Octobre',
+'Novembre',
+'Décembre'
+]
+}
+}
+})
 	</script>
 {% endblock %}
